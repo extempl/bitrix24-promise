@@ -8,7 +8,7 @@ function isExpired(token){
     return(new Date() > token.expiresAt);
 }
 function refreshToken(token){
-    if(token !== null)
+    if(token && token.refreshToken)
     {
         const options = {
             'url':credentials.auth.tokenHost+credentials.auth.tokenPath,
@@ -172,13 +172,13 @@ exports.callMethod = function(method,params){
                 .then(function(result){
                     try
                     {
-                        if(result.statusCode == 200) 
+                        if(result.statusCode === 200)
                         {
                             let body = JSON.parse(result.body);
                             if(body.error) reject(new Error(body.error));
                             else resolve(body.result);
                         }
-                        else reject(new Error(JSON.stringify({'statusCode':result.statusCode,'body':body})));
+                        else reject(new Error(JSON.stringify({'statusCode':result.statusCode,'body':result.body})));
                     }
                     catch(err)
                     {
