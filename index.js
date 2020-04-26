@@ -192,7 +192,7 @@ exports.callMethod = function(method,params){
                 .catch(reject);
         });
     }
-    if(token === null) throw new Error('Bitrix24 was not properly initialized. Token not found.');
+    if(!token) throw new Error('Bitrix24 was not properly initialized. Token not found.');
     else if(isExpired(token))
         return refreshToken(token)
             .then(prepareRequest);
