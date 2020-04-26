@@ -115,9 +115,13 @@ exports.initialize = function(params){
         else return resolve({credentials, token:{'accessToken':null,'refreshToken':null,'expiresAt':null}});
     });
 };
-exports.restore = function(_credentials = {}, _token) {
+
+// TODO optimize
+exports.restore = function(_credentials = {}, _token, _bitrixUrl, _scope) {
     credentials = _credentials;
     token = _token;
+    bitrixUrl = _bitrixUrl;
+    scope = _scope;
 }
 exports.manualAuthURL = function(req, res){
     if (Object.keys(credentials).length === 0) throw new Error('Bitrix24 was not properly initialized before calling auth.');
