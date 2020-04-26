@@ -148,7 +148,8 @@ exports.authenticate = function()
                     'refreshToken':data.refresh_token,
                     'expiresAt':time.setSeconds(time.getSeconds() + data.expires_in)
                 };
-                next();
+                next && next();
+                return token;
             })
             .catch(function(err){
                 throw new Error(err);
