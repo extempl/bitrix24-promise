@@ -102,7 +102,7 @@ exports.initialize = function(params){
                                 'simple':false,
                             })
                             .then(function(){ //this is the custom user response and we don't really need it
-                                return resolve(token); //token should be available now
+                                return resolve({credentials, token}); //token should be available now
                             });
                         });
                     })
@@ -112,9 +112,13 @@ exports.initialize = function(params){
             })
             .catch(reject);
         }
-        else return resolve({'accessToken':null,'refreshToken':null,'expiresAt':null});
+        else return resolve({credentials, token:{'accessToken':null,'refreshToken':null,'expiresAt':null}});
     });
 };
+exports.restore = function(_credentials, _token) {
+    credentials = _credentials;
+    token = _token;
+}
 exports.manualAuthURL = function(req, res){
     if (Object.keys(credentials).length === 0) throw new Error('Bitrix24 was not properly initialized before calling auth.');
     else res.redirect(credentials.auth.tokenHost+credentials.auth.authorizePath+'?scope='+scope+'&response_type=code&client_id='+credentials.client.id);
