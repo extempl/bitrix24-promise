@@ -119,6 +119,10 @@ exports.manualAuthURL = function(req, res){
     if (Object.keys(credentials).length === 0) throw new Error('Bitrix24 was not properly initialized before calling auth.');
     else res.redirect(credentials.auth.tokenHost+credentials.auth.authorizePath+'?scope='+scope+'&response_type=code&client_id='+credentials.client.id);
 };
+exports.manualAuthDirectURL = function(req, res){
+    if (Object.keys(credentials).length === 0) throw new Error('Bitrix24 was not properly initialized before calling auth.');
+    else res.redirect(`${bitrixUrl}${credentials.auth.authorizePath}?response_type=code&client_id=${credentials.client.id}`);
+};
 exports.authenticate = function()
 {
     return function(req, res, next){
