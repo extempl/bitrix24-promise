@@ -115,7 +115,7 @@ exports.initialize = function(params){
         else return resolve({credentials, token:{'accessToken':null,'refreshToken':null,'expiresAt':null}});
     });
 };
-exports.restore = function(_credentials, _token) {
+exports.restore = function(_credentials = {}, _token) {
     credentials = _credentials;
     token = _token;
 }
