@@ -125,7 +125,7 @@ exports.manualAuthDirectURL = function(req, res){
 };
 exports.authenticate = function()
 {
-    return function(req, res, next){
+    return function(req, res, next) {
         const options = {
             'url':credentials.auth.tokenHost+credentials.auth.tokenPath,
             'qs':{
@@ -135,7 +135,7 @@ exports.authenticate = function()
                 'grant_type':'authorization_code'
             }
         };
-        request(options)
+        return request(options)
             .then(function(response){
                 let data = JSON.parse(response);
                 let time = new Date();
